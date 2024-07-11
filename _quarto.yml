@@ -8,6 +8,8 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: noodle.qmd
+        text: "지바시 라멘집"
 
 format:
   html:

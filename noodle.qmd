@@ -1,0 +1,62 @@
+---
+title: "지바대 라멘지도"
+editor_options: 
+  chunk_output_type: console
+output: 
+  html: 
+    self_contained: true
+execute:
+  echo: false
+  eval: true
+---
+
+# 라멘집 
+
+니시치바 근처 지바대학교 인근의 라멘집 추천 목록입니다.
+
+| 라멘집 이름 | 링크 | 특징 | 위도 | 경도 |
+|-------------------|---------------|-----------------|------------|------------|
+| 無限大 西千葉店 | [무겐다이](https://maps.app.goo.gl/LgeM5q1UbVrHRD5NA) | 츠케멘이 맛있음 | 35.6221435 | 140.1044743 |
+| ニューとんとん | [뉴 톤톤](https://maps.app.goo.gl/JzF7j4b5NT9SKSRU6) | 닭고기 베이스 국물 메뉴 추천 | 35.6217001 | 140.1037017 |
+| ラーメンショップ 龍門 | [라멘샵 룡몬](https://maps.app.goo.gl/ysRw53kG84RictdP8) | 양 많고 마늘 폭탄 라멘 | 35.6235308 | 140.1034602 |
+| 頑々坊子 | [간간보시](https://maps.app.goo.gl/TYtPKfCT1EnAVyzD6) | 일본에서 대중적인 스타일 | 35.6223729 | 140.102436 |
+| 長州ラーメン 万龍軒 | [만룡켄](https://maps.app.goo.gl/k73AZcumcYosCY6QA) | 면도 맛있고 깔끔한 쇼유라멘 | 35.6238641 | 140.1019659 |
+| 松戸富田麺業 | [마츠도 토미타 면업](https://maps.app.goo.gl/fjjVUgepyyXGYbjw5) | 치바역 근처 | 35.6142718 | 140.1100112 |
+
+# 지도
+
+```{python}
+#| label: chiba-map
+import folium
+from folium.plugins import MarkerCluster
+
+# 라멘집 데이터
+shops = [
+    {"name": "無限大 西千葉店 (무겐다이)", "lat": 35.6221435, "lon": 140.1044743, "description": "츠케멘이 맛있음"},
+    {"name": "ニューとんとん (뉴 톤톤)", "lat": 35.6217001, "lon": 140.1037017, "description": "닭고기 베이스 국물 메뉴 추천"},
+    {"name": "ラーメンショップ 龍門 (라멘샵 룡몬)", "lat": 35.6235308, "lon": 140.1034602, "description": "양 많고 마늘 폭탄 라멘"},
+    {"name": "頑々坊子 (간간보시)", "lat": 35.6223729, "lon": 140.102436, "description": "일본에서 대중적인 스타일"},
+    {"name": "長州ラーメン 万龍軒 (만룡켄)", "lat": 35.6238641, "lon": 140.1019659, "description": "면도 맛있고 깔끔한 쇼유라멘"},
+    {"name": "松戸富田麺業 (마츠도 토미타 면업)", "lat": 35.6142718, "lon": 140.1100112, "description": "치바역 근처"}
+]
+
+# 지도 생성
+m = folium.Map(location=[35.6221435, 140.1044743], zoom_start=15)
+
+# 마커 클러스터 생성
+marker_cluster = MarkerCluster().add_to(m)
+
+# 라멘집 마커 추가
+for shop in shops:
+    folium.Marker(
+        location=[shop['lat'], shop['lon']],
+        popup=folium.Popup(f"<b>{shop['name']}</b><br>{shop['description']}", max_width=300),
+        tooltip=shop['name']
+    ).add_to(marker_cluster)
+
+m
+
+```
+
+
+
