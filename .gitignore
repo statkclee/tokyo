@@ -4,3 +4,6 @@
 .Ruserdata
 
 /.quarto/
+tour.qmd
+docs/tour.html
+
